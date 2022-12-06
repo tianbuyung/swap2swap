@@ -69,6 +69,7 @@ module.exports = {
     'import/resolver': {
       alias: {
         map: [
+          ['assets', './assets'],
           ['components', './components'],
           ['pages', './pages'],
           ['styles', './styles'],
