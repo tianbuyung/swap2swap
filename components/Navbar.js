@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
@@ -81,26 +81,14 @@ const Navbar = () => {
     <nav className="flexBetween w-full fixed z-10 p-4 flex-row border-b dark:bg-nft-dark bg-white dark:border-nft-black-1 border-nft-gray-1">
       <div className="flex flex-1 flex-row justify-start">
         <Link href="/">
-          <div className="flexCenter md:hidden cursor-pointer" onClick={() => {}}>
-            <Image
-              src={images.logo02}
-              alt="logo"
-              width={32}
-              height={32}
-              style={{ objectFit: 'contain' }}
-            />
+          <div className="flexCenter md:hidden cursor-pointer object-contain" onClick={() => {}}>
+            <Image src={images.logo02} alt="logo" width={32} height={32} />
             <p className="dark:text-white text-nft-black-1 font-semibold text-lg ml-1">CryptoKet</p>
           </div>
         </Link>
         <Link href="/">
-          <div className="hidden md:flex" onClick={() => {}}>
-            <Image
-              src={images.logo02}
-              alt="logo"
-              width={32}
-              height={32}
-              style={{ objectFit: 'contain' }}
-            />
+          <div className="hidden md:flex object-contain" onClick={() => {}}>
+            <Image src={images.logo02} alt="logo" width={32} height={32} />
           </div>
         </Link>
       </div>
@@ -128,11 +116,10 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className="hidden md:flex ml-2">
+      <div className="hidden md:flex ml-2 object-contain">
         {!isOpen ? (
           <Image
             src={images.menu}
-            style={{ objectFit: 'contain' }}
             width={25}
             height={25}
             alt="menu"
@@ -142,7 +129,6 @@ const Navbar = () => {
         ) : (
           <Image
             src={images.cross}
-            style={{ objectFit: 'contain' }}
             width={20}
             height={20}
             alt="close"

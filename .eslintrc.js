@@ -3,15 +3,21 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ['plugin:react/recommended', 'airbnb'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:@next/next/recommended',
+    'airbnb',
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 12,
+    ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react'],
+  plugins: ['import', 'react', 'jsx-a11y'],
   rules: {
     'no-console': 0,
     'jsx-a11y/label-has-associated-control': 0,
@@ -64,6 +70,8 @@ module.exports = {
         aspects: ['noHref', 'invalidHref', 'preferButton'],
       },
     ],
+    'react-hooks/rules-of-hooks': 2,
+    'react-hooks/exhaustive-deps': 2, // Checks effect dependencies
   },
   settings: {
     'import/resolver': {
@@ -73,8 +81,12 @@ module.exports = {
           ['components', './components'],
           ['pages', './pages'],
           ['styles', './styles'],
+          ['utils', './utils'],
         ],
       },
+    },
+    react: {
+      version: 'detect',
     },
   },
 };
