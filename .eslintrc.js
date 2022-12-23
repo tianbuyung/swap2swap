@@ -82,6 +82,7 @@ module.exports = {
           ['pages', './pages'],
           ['styles', './styles'],
           ['utils', './utils'],
+          ['context', './context'],
         ],
       },
     },
