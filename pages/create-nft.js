@@ -6,14 +6,18 @@ import { useTheme } from 'next-themes';
 
 import { Button, Input } from 'components';
 import images from 'assets';
+import { NFTContext } from 'context/NFTContext';
 
 const CreateNFT = () => {
   const [fileUrl, setFileUrl] = useState(null);
   const [formInput, setFormInput] = useState({ price: '', name: '', description: '' });
   const { theme } = useTheme();
+  const { uploadToIPFS } = useContext(NFTContext);
 
-  const onDrop = useCallback(async () => {
-    // upload image to the ipfs
+  const onDrop = useCallback(async (acceptedFile) => {
+    const url = await uploadToIPFS(acceptedFile[0]);
+    console.log({ url });
+    setFileUrl(url);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
@@ -30,8 +34,6 @@ const CreateNFT = () => {
        ${isDragReject ? ' border-file-reject ' : ''}`,
     [isDragActive, isDragReject, isDragAccept],
   );
-
-  console.log(formInput);
 
   const createMarket = async () => {
     // const { name, description, price } = formInput;
@@ -88,8 +90,8 @@ const CreateNFT = () => {
             </div>
             {fileUrl && (
               <aside>
-                <div>
-                  <Image src={fileUrl} alt="Asset_file" />
+                <div className="my-12 w-full flex justify-center object-contain">
+                  <Image src={fileUrl} width={200} height={200} alt="Asset_file" />
                 </div>
               </aside>
             )}
