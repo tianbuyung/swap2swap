@@ -24,6 +24,8 @@ const fetchContract = (signerOrProvider) =>
   // eslint-disable-next-line implicit-arrow-linebreak
   new ethers.Contract(MarketAddress, MarketAddressABI, signerOrProvider);
 
+const rpcUrl = process.env.NEXT_PUBLIC_AVALANCHE_FUJI_TESTNET_API_URL;
+
 export const NFTContext = React.createContext();
 
 export const NFTProvider = ({ children }) => {
@@ -98,9 +100,43 @@ export const NFTProvider = ({ children }) => {
     }
   };
 
+  const fetchNFTs = async () => {
+    try {
+      const provider = new ethers.providers.JsonRpcProvider(rpcUrl);
+      const contract = fetchContract(provider);
+
+      const data = await contract.fetchMarketItems();
+      const items = await Promise.all(
+        data.map(async ({ tokenId, seller, owner, price: unformattedPrice }) => {
+          const tokenURI = await contract.tokenURI(tokenId);
+          const {
+            data: { image, name, description },
+          } = await axios.get(tokenURI);
+          const price = ethers.utils.formatUnits(unformattedPrice.toString(), 'ether');
+
+          return {
+            price,
+            tokenId: tokenId.toNumber(),
+            id: tokenId.toNumber(),
+            seller,
+            owner,
+            image,
+            name,
+            description,
+            tokenURI,
+          };
+        }),
+      );
+
+      return items;
+    } catch (error) {
+      console.log(`Error to fetching data: ${error.message}.`);
+    }
+  };
+
   return (
     <NFTContext.Provider
-      value={{ nftCurrency, connectWallet, currentAccount, uploadToIPFS, createNFT }}
+      value={{ nftCurrency, connectWallet, currentAccount, uploadToIPFS, createNFT, fetchNFTs }}
     >
       {children}
     </NFTContext.Provider>
