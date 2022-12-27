@@ -1,7 +1,39 @@
-import '../styles/globals.css'
+import React, { useEffect, useState } from 'react';
+import { ThemeProvider } from 'next-themes';
+import Script from 'next/script';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
+import { Navbar, Footer } from 'components';
 
-export default MyApp
+import 'styles/globals.css';
+import { NFTProvider } from 'context/NFTContext';
+
+const MyApp = ({ Component, pageProps }) => {
+  // to Avoid Hydration Mismatch with next-themes
+  const [mounted, setMounted] = useState(false);
+
+  // useEffect only runs on the client, so now we can safely show the UI
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  return (
+    <NFTProvider>
+      <ThemeProvider attribute="class">
+        <div className="dark:bg-nft-dark bg-white min-h-screen">
+          <Navbar />
+          <div className="pt-65" />
+          <Component {...pageProps} />
+          <Footer />
+        </div>
+
+        <Script src="https://kit.fontawesome.com/22d05d0ace.js" crossOrigin="anonymous" />
+      </ThemeProvider>
+    </NFTProvider>
+  );
+};
+
+export default MyApp;
