@@ -20,6 +20,7 @@ const NFTCard = ({ nft, onProfilePage }) => {
               (max-width: 1200px) 50vw,
               33vw"
             alt={`nft${nft.i}`}
+            priority
           />
         </div>
         <div className="mt-3 flex flex-col">
