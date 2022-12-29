@@ -1,17 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import { shortenAddress } from 'utils/shortenAddress';
+import { NFTContext } from 'context/NFTContext';
 import { Loader, NFTCard, SearchBar, Banner } from 'components';
 import images from 'assets';
-import { NFTContext } from 'context/NFTContext';
+import { shortenAddress } from 'utils/shortenAddress';
 
 const MyNFTs = () => {
+  const { fetchMyNFTsOrListedNFTs, currentAccount } = useContext(NFTContext);
   const [nfts, setNfts] = useState([]);
   const [nftsCopy, setNftsCopy] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeSelect, setActiveSelect] = useState('Recently Added');
-  const { fetchMyNFTsOrListedNFTs, currentAccount } = useContext(NFTContext);
 
   useEffect(() => {
     fetchMyNFTsOrListedNFTs('fetchMyNFTs').then((items) => {
@@ -19,30 +19,33 @@ const MyNFTs = () => {
       setNftsCopy(items);
       setIsLoading(false);
     });
-  }, []);
+  }, [fetchMyNFTsOrListedNFTs]);
 
-  useEffect(() => {
-    const sortedNfts = [...nfts];
+  // useEffect(() => {
+  //   const sortedNfts = [...nfts];
 
-    switch (activeSelect) {
-      case 'Price (low to high)':
-        setNfts(sortedNfts.sort((a, b) => a.price - b.price));
-        break;
-      case 'Price (high to low)':
-        setNfts(sortedNfts.sort((a, b) => b.price - a.price));
-        break;
-      case 'Recently added':
-        setNfts(sortedNfts.sort((a, b) => b.tokenId - a.tokenId));
-        break;
-      default:
-        setNfts(nfts);
-        break;
-    }
-  }, [activeSelect]);
+  //   switch (activeSelect) {
+  //     case 'Price (low to high)':
+  //       setNfts(sortedNfts.sort((a, b) => a.price - b.price));
+  //       break;
+  //     case 'Price (high to low)':
+  //       setNfts(sortedNfts.sort((a, b) => b.price - a.price));
+  //       break;
+  //     case 'Recently added':
+  //       setNfts(sortedNfts.sort((a, b) => b.tokenId - a.tokenId));
+  //       break;
+  //     default:
+  //       setNfts(nfts);
+  //       break;
+  //   }
+  // }, [activeSelect, nfts]);
 
   const onHandleSearch = (value) => {
-    const filteredNfts = nfts.filter(({ name }) =>
-      name.toLowerCase().includes(value.toLowerCase()),
+    const filteredNfts = nfts.filter(
+      ({ name }) =>
+        // eslint-disable-next-line implicit-arrow-linebreak
+        name.toLowerCase().includes(value.toLowerCase()),
+      // eslint-disable-next-line function-paren-newline
     );
 
     if (filteredNfts?.length === 0) {
@@ -76,8 +79,13 @@ const MyNFTs = () => {
         />
 
         <div className="flexCenter flex-col -mt-20 z-0">
-          <div className="flexCenter w-40 h-40 sm:w-36 sm:h-36 p-1 bg-nft-black-2 rounded-full object-cover">
-            <Image src={images?.creator1} className="rounded-full" />
+          <div className="flexCenter w-40 h-40 sm:w-36 sm:h-36 p-1 bg-nft-black-2 rounded-full">
+            <Image
+              src={images?.creator1}
+              className="rounded-full object-cover"
+              alt="profile-image"
+              as="profile-image"
+            />
           </div>
           <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-2xl mt-6">
             {shortenAddress(currentAccount)}

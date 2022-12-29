@@ -26,6 +26,7 @@ module.exports = {
     'no-alert': 0,
     'react/jsx-no-constructed-context-values': 0,
     'import/extensions': 0,
+    'import/no-unresolved': 0,
     'react/prop-types': 0,
     'linebreak-style': 0,
     'react/state-in-constructor': 0,
@@ -72,22 +73,5 @@ module.exports = {
     ],
     'react-hooks/rules-of-hooks': 2,
     'react-hooks/exhaustive-deps': 2, // Checks effect dependencies
-  },
-  settings: {
-    'import/resolver': {
-      alias: {
-        map: [
-          ['assets', './assets'],
-          ['components', './components'],
-          ['pages', './pages'],
-          ['styles', './styles'],
-          ['utils', './utils'],
-          ['context', './context'],
-        ],
-      },
-    },
-    react: {
-      version: 'detect',
-    },
   },
 };

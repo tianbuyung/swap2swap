@@ -13,7 +13,7 @@ const CreatorCard = ({ rank, creatorImage, creatorName, creatorEths }) => {
         <p className="font-poppins text-white font-semibold text-base minlg:text-lg ">{rank}</p>
       </div>
       <div className="my-2 flex justify-center">
-        <div className="relative w-20 h-20 minlg:w-28 minlg:h-28 object-contain">
+        <div className="relative w-20 h-20 minlg:w-28 minlg:h-28">
           <Image
             src={creatorImage}
             fill
@@ -21,10 +21,10 @@ const CreatorCard = ({ rank, creatorImage, creatorName, creatorEths }) => {
                 (max-width: 1200px) 50vw,
                 33vw"
             alt="creator"
-            className="rounded-full"
+            className="rounded-full object-contain"
           />
-          <div className="absolute w-4 h-4 minlg:w-7 minlg:h-7 bottom-2 -right-0 object-contain">
-            <Image src={images.tick} alt="tick" />
+          <div className="absolute w-4 h-4 minlg:w-7 minlg:h-7 bottom-2 -right-0">
+            <Image src={images.tick} alt="tick" className="object-contain" />
           </div>
         </div>
       </div>

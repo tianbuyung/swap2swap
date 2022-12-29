@@ -8,6 +8,7 @@ import images from 'assets';
 import { NFTContext } from 'context/NFTContext';
 
 const Home = () => {
+  const { fetchNFTs } = useContext(NFTContext);
   const [hideButtons, setHideButtons] = useState(false);
   const [activeSelect, setActiveSelect] = useState('Recently Added');
   const [nfts, setNfts] = useState([]);
@@ -20,13 +21,12 @@ const Home = () => {
   const parentRef = useRef(null);
   const scrollRef = useRef(null);
   const { theme } = useTheme();
-  const { fetchNFTs } = useContext(NFTContext);
 
   useEffect(() => {
     fetchNFTs().then((items) => {
       setNfts(items);
     });
-  }, []);
+  }, [fetchNFTs]);
 
   const handleScroll = (direction) => {
     const { current } = scrollRef;
@@ -131,22 +131,28 @@ const Home = () => {
                 <>
                   <div
                     onClick={() => handleScroll('left')}
-                    className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 cursor-pointer left-0 object-contain"
+                    className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 cursor-pointer left-0"
                   >
                     <Image
                       src={images.left}
+                      as="left_arrow"
                       alt="left_arrow"
-                      className={theme === 'light' ? 'filter invert' : undefined}
+                      className={`${
+                        theme === 'light' ? 'filter invert' : undefined
+                      } object-contain`}
                     />
                   </div>
                   <div
                     onClick={() => handleScroll('right')}
-                    className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 cursor-pointer right-0 object-contain"
+                    className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 cursor-pointer right-0"
                   >
                     <Image
                       src={images.right}
-                      alt="left_arrow"
-                      className={theme === 'light' ? 'filter invert' : undefined}
+                      as="right_arrow"
+                      alt="right_arrow"
+                      className={`${
+                        theme === 'light' ? 'filter invert' : undefined
+                      } object-contain`}
                     />
                   </div>
                 </>
