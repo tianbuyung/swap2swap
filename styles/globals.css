@@ -8,15 +8,15 @@
 .nft-gradient {
   background: linear-gradient(
     101.12deg,
-    #eb1484 27.35%,
-    #c91cc3 99.99%,
-    #c81cc5 100%,
-    #c81cc5 100%
+    #6c00ff 27.35%,
+    #3c79f5 99.99%,
+    #2dcddf 100%,
+    #f2deba 100%
   );
 }
 
 .white-bg {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(45, 205, 223, 0.2);
 }
 
 .nav-h {
@@ -56,12 +56,12 @@
 }
 
 .fa-moon {
-  color: pink;
+  color: #2dcddf;
   font-size: 9px;
 }
 
 .fa-sun {
-  color: yellow;
+  color: #f2deba;
   font-size: 9px;
 }
 

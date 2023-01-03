@@ -3,9 +3,10 @@ import { useTheme } from 'next-themes';
 import Image from 'next/image';
 
 import { Banner, CreatorCard, NFTCard, SearchBar } from 'components';
-import { makeId } from 'utils/makeId';
 import images from 'assets';
 import { NFTContext } from 'context/NFTContext';
+import { getTopCreators } from 'utils/getTopCreators';
+import { shortenAddress } from 'utils/shortenAddress';
 
 const Home = () => {
   const { fetchNFTs } = useContext(NFTContext);
@@ -59,45 +60,7 @@ const Home = () => {
     };
   }, []);
 
-  const onHandleSearch = (value) => {
-    const filteredNfts = nfts.filter(
-      ({ name }) =>
-        // eslint-disable-next-line implicit-arrow-linebreak
-        name.toLowerCase().includes(value.toLowerCase()),
-      // eslint-disable-next-line function-paren-newline
-    );
-
-    if (filteredNfts.length === 0) {
-      setNfts(nftsCopy);
-    } else {
-      setNfts(filteredNfts);
-    }
-  };
-
-  const onClearSearch = () => {
-    if (nfts.length && nftsCopy.length) {
-      setNfts(nftsCopy);
-    }
-  };
-
-  useEffect(() => {
-    const sortedNfts = [...nfts];
-
-    switch (activeSelect) {
-      case 'Price (low to high)':
-        setNfts(sortedNfts.sort((a, b) => a.price - b.price));
-        break;
-      case 'Price (high to low)':
-        setNfts(sortedNfts.sort((a, b) => b.price - a.price));
-        break;
-      case 'Recently added':
-        setNfts(sortedNfts.sort((a, b) => b.tokenId - a.tokenId));
-        break;
-      default:
-        setNfts(nfts);
-        break;
-    }
-  }, [activeSelect, setNfts, nfts]);
+  const topCreators = getTopCreators(nfts);
 
   return (
     <div className="flex justify-center sm:px-4 p-12">
@@ -118,13 +81,13 @@ const Home = () => {
               className="flex flex-row w-max overflow-x-scroll no-scrollbar select-none"
               ref={scrollRef}
             >
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
+              {topCreators.map((creator, i) => (
                 <CreatorCard
-                  key={`creator-${i}`}
-                  rank={i}
-                  creatorImage={images[`creator${i}`]}
-                  creatorName={`0x${makeId(3)}...${makeId(4)}`}
-                  creatorEths={10 - i * 0.534}
+                  key={creator.seller}
+                  rank={i + 1}
+                  creatorImage={images[`creator${i + 1}`]}
+                  creatorName={shortenAddress(creator.seller)}
+                  creatorEths={creator.sum}
                 />
               ))}
               {!hideButtons && (
@@ -170,13 +133,13 @@ const Home = () => {
               <SearchBar
                 activeSelect={activeSelect}
                 setActiveSelect={setActiveSelect}
-                handleSearch={onHandleSearch}
-                clearSearch={onClearSearch}
+                handleSearch={() => {}}
+                clearSearch={() => {}}
               />
             </div>
           </div>
           <div className="mt-3 w-full flex flex-wrap justify-start md:justify-center">
-            {nfts.map((nft) => (
+            {nfts?.map((nft) => (
               <NFTCard key={nft.tokenId} nft={nft} />
             ))}
           </div>
