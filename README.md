@@ -1,13 +1,13 @@
-# Sample Hardhat Project
+# Swap2Swap
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+Swap2Swap is blockchain-based marketplace app where users can discover, create, purchase, and sell NFTs. Build using with the most modern, most popular, and most in-demand technologies in the JavaScript ecosystem, such as React.js, Solidity, MetaMask, IPFS, ES Lint, and more!
 
-Try running some of the following tasks:
+Created based on tutorial from [Cryptoket - JSM](https://www.jsmastery.pro/ultimate-web3-course).
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
-```
+## Authors
+
+Septian Maulana
+
+## License
+
+[GNU GPLv3](/LICENSE.md) License
