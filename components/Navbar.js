@@ -45,7 +45,7 @@ const MenuItems = ({ isMobile, active, setActive, setIsOpen }) => {
   );
 };
 
-const ButtonGroup = ({ setActive, router }) => {
+const ButtonGroup = ({ setActive, router, setIsOpen }) => {
   const { connectWallet, currentAccount } = useContext(NFTContext);
 
   return currentAccount ? (
@@ -56,6 +56,7 @@ const ButtonGroup = ({ setActive, router }) => {
         classStyles="mx-2 rounded-xl"
         handleClick={() => {
           setActive('');
+          setIsOpen(false);
           router.push('/create-nft');
         }}
       />
@@ -95,7 +96,7 @@ const Navbar = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
-  const checkTheme = theme === 'light' ? 'filter invert' : undefined;
+  const checkTheme = theme === 'light' ? 'filter invert' : '';
 
   useEffect(() => {
     setTheme('dark');
@@ -118,7 +119,12 @@ const Navbar = () => {
     <nav className="flexBetween w-full fixed z-10 p-4 flex-row border-b dark:bg-nft-dark bg-white dark:border-nft-black-1 border-nft-gray-1">
       <div className="flex flex-1 flex-row justify-start">
         <Link href="/">
-          <div className="flexCenter md:hidden cursor-pointer" onClick={() => {}}>
+          <div
+            className="flexCenter md:hidden cursor-pointer"
+            onClick={() => {
+              setActive('Explore NFT');
+            }}
+          >
             <Image
               src={images.swap2swap}
               alt="logo"
@@ -130,7 +136,13 @@ const Navbar = () => {
           </div>
         </Link>
         <Link href="/">
-          <div className="hidden md:flex" onClick={() => {}}>
+          <div
+            className="hidden md:flex"
+            onClick={() => {
+              setActive('Explore NFT');
+              setIsOpen(false);
+            }}
+          >
             <Image
               src={images.swap2swap}
               alt="logo"
@@ -161,7 +173,7 @@ const Navbar = () => {
         <div className="md:hidden flex">
           <MenuItems active={active} setActive={setActive} />
           <div className="ml-4">
-            <ButtonGroup setActive={setActive} router={router} />
+            <ButtonGroup setActive={setActive} router={router} setIsOpen={setIsOpen} />
           </div>
         </div>
       </div>
@@ -192,7 +204,7 @@ const Navbar = () => {
               <MenuItems active={active} setActive={setActive} isMobile setIsOpen={setIsOpen} />
             </div>
             <div className="p-4 border-t dark:border-nft-black-1 border-nft-gray-1">
-              <ButtonGroup setActive={setActive} router={router} />
+              <ButtonGroup setActive={setActive} router={router} setIsOpen={setIsOpen} />
             </div>
           </div>
         )}

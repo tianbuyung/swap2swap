@@ -128,7 +128,7 @@ const Home = () => {
                 Top Sellers
               </h1>
 
-              <div className="relative flex-1 max-w-full flex mt-3" ref={parentRef}>
+              <div className="relative flex-1 max-w-full flex mt-3 justify-center" ref={parentRef}>
                 <div
                   className="flex flex-row w-max overflow-x-scroll no-scrollbar select-none"
                   ref={scrollRef}
@@ -152,9 +152,7 @@ const Home = () => {
                           src={images.left}
                           as="left_arrow"
                           alt="left_arrow"
-                          className={`${
-                            theme === 'light' ? 'filter invert' : undefined
-                          } object-contain`}
+                          className={`${theme === 'light' ? 'filter invert' : ''} object-contain`}
                         />
                       </div>
                       <div
@@ -165,9 +163,7 @@ const Home = () => {
                           src={images.right}
                           as="right_arrow"
                           alt="right_arrow"
-                          className={`${
-                            theme === 'light' ? 'filter invert' : undefined
-                          } object-contain`}
+                          className={`${theme === 'light' ? 'filter invert' : ''} object-contain`}
                         />
                       </div>
                     </>

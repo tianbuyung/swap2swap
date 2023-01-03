@@ -78,7 +78,7 @@ const Footer = () => {
                     width={24}
                     height={24}
                     alt="social"
-                    className={`${theme === 'light' ? 'filter invert' : undefined} object-contain`}
+                    className={`${theme === 'light' ? 'filter invert' : ''} object-contain`}
                   />
                 </div>
               ),
