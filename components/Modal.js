@@ -35,7 +35,7 @@ const Modal = ({ header, body, footer, handleClose }) => {
               sizes="(max-width: 768px) 100vw,
               (max-width: 1200px) 50vw,
               33vw"
-              className={theme === 'light' ? 'filter invert' : undefined}
+              className={theme === 'light' ? 'filter invert' : ''}
               alt="NFT-images"
             />
           </div>
