@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const dedicatedEndPoint = 'second-market.infura-ipfs.io';
+const dedicatedEndPoint = 'swap2swap.infura-ipfs.io';
 
 const nextConfig = {
   reactStrictMode: true,

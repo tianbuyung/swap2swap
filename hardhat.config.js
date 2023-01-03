@@ -16,6 +16,9 @@ task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   networks: {
+    hardhat: {
+      chainId: 1337,
+    },
     fuji: {
       url: 'https://api.avax-test.network/ext/bc/C/rpc',
       gasPrice: 225000000000,
