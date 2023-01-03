@@ -21,24 +21,32 @@ const MyNFTs = () => {
     });
   }, [fetchMyNFTsOrListedNFTs]);
 
-  // useEffect(() => {
-  //   const sortedNfts = [...nfts];
+  useEffect(() => {
+    const sortedNfts = [...nfts];
 
-  //   switch (activeSelect) {
-  //     case 'Price (low to high)':
-  //       setNfts(sortedNfts.sort((a, b) => a.price - b.price));
-  //       break;
-  //     case 'Price (high to low)':
-  //       setNfts(sortedNfts.sort((a, b) => b.price - a.price));
-  //       break;
-  //     case 'Recently added':
-  //       setNfts(sortedNfts.sort((a, b) => b.tokenId - a.tokenId));
-  //       break;
-  //     default:
-  //       setNfts(nfts);
-  //       break;
-  //   }
-  // }, [activeSelect, nfts]);
+    switch (activeSelect) {
+      case 'Price (low to high)':
+        setNfts(sortedNfts?.sort((a, b) => a.price - b.price));
+        break;
+      case 'Price (high to low)':
+        setNfts(sortedNfts?.sort((a, b) => b.price - a.price));
+        break;
+      case 'Recently added':
+        setNfts(sortedNfts?.sort((a, b) => b.tokenId - a.tokenId));
+        break;
+      default:
+        setNfts(nfts);
+        break;
+    }
+  }, [activeSelect]);
+
+  if (isLoading) {
+    return (
+      <div className="flexStart min-h-screen">
+        <Loader />
+      </div>
+    );
+  }
 
   const onHandleSearch = (value) => {
     const filteredNfts = nfts.filter(
@@ -48,10 +56,10 @@ const MyNFTs = () => {
       // eslint-disable-next-line function-paren-newline
     );
 
-    if (filteredNfts?.length === 0) {
-      setNfts(nftsCopy);
-    } else {
+    if (filteredNfts?.length) {
       setNfts(filteredNfts);
+    } else {
+      setNfts(nftsCopy);
     }
   };
 
@@ -60,14 +68,6 @@ const MyNFTs = () => {
       setNfts(nftsCopy);
     }
   };
-
-  if (isLoading) {
-    return (
-      <div className="flexStart min-h-screen">
-        <Loader />
-      </div>
-    );
-  }
 
   return (
     <div className="w-full flex justify-start items-center flex-col min-h-screen">
@@ -93,7 +93,7 @@ const MyNFTs = () => {
         </div>
       </div>
 
-      {!isLoading && nfts?.length === 0 ? (
+      {!isLoading && !nfts.length && !nftsCopy.length ? (
         <div className="flexCenter sm:p-4 p-16">
           <h1 className="font-poppins dark:text-white text-nft-black-1 text-3xl font-extrabold">
             No NFTs owned

@@ -81,7 +81,7 @@ const CreateNFT = () => {
                   <Image
                     src={fileUrl}
                     width={200}
-                    height="auto"
+                    height={200}
                     alt="Asset_file"
                     className="object-contain"
                   />
