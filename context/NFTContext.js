@@ -152,7 +152,7 @@ export const NFTProvider = ({ children }) => {
       const data =
         type === 'fetchItemsListed'
           ? await contract.fetchItemsListed()
-          : await contract.fetchMyNFTs();
+          : await contract.fetchMyItems();
 
       const items = await Promise.all(
         data.map(async ({ tokenId, seller, owner, price: unformattedPrice }) => {
