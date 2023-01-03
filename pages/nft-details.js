@@ -214,8 +214,11 @@ const NFTDetails = () => {
               btnName="List on Marketplace"
               btnType="primary"
               classStyles="mr-5 sm:mr-0 sm:mb-5 rounded-xl"
-              handleClick={() =>
-                router.push(`/resell-nft?id=${nft.tokenId}&tokenURI=${nft.tokenURI}`)
+              handleClick={
+                () =>
+                  // eslint-disable-next-line implicit-arrow-linebreak
+                  router.push(`/resell-nft?id=${nft.tokenId}&tokenURI=${nft.tokenURI}`)
+                // eslint-disable-next-line react/jsx-curly-newline
               }
             />
           ) : (
