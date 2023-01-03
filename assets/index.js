@@ -37,6 +37,7 @@ import left from './left.png';
 import headerbg from './headerbg.png';
 import loader from './loader.gif';
 import arrow from './arrow.png';
+import swap2swap from './swap2swap.png';
 
 export default {
   heartOutline,
@@ -78,4 +79,5 @@ export default {
   headerbg,
   loader,
   arrow,
+  swap2swap,
 };

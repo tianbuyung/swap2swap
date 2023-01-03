@@ -28,9 +28,15 @@ const Footer = () => {
     <footer className="flexCenter flex-col border-t dark:border-nft-black-1 border-nft-gray-1 sm:py-8 py-16">
       <div className="w-full minmd:w-4/5 flex flex-row md:flex-col sm:px-4 px-16">
         <div className="flexStart flex-1 flex-col">
-          <div className="flexCenter cursor-pointer object-contain">
-            <Image src={images.logo02} width={32} height={32} alt="logo" />
-            <p className=" dark:text-white text-nft-dark font-semibold text-lg ml-1">CryptoKet</p>
+          <div className="flexCenter cursor-pointer">
+            <Image
+              src={images.swap2swap}
+              width={32}
+              height={32}
+              alt="logo"
+              className="object-contain"
+            />
+            <p className=" dark:text-white text-nft-dark font-semibold text-lg ml-1">Swap2Swap</p>
           </div>
           <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-base mt-6">
             Get the latest updates
@@ -48,7 +54,7 @@ const Footer = () => {
         </div>
 
         <div className="flex-1 flexBetweenStart flex-wrap ml-10 md:ml-0 md:mt-8">
-          <FooterLinks heading="CryptoKet" items={['Explore', 'How it Works', 'Contact Us']} />
+          <FooterLinks heading="Swap2Swap" items={['Explore', 'How it Works', 'Contact Us']} />
           <FooterLinks
             heading="Support"
             items={['Help Center', 'Terms of service', 'Legal', 'Privacy policy']}
@@ -60,19 +66,19 @@ const Footer = () => {
       <div className="flexCenter w-full mt-5 border-t dark:border-nft-black-1 border-nft-gray-1 sm:px-4 px-16">
         <div className="flexBetween flex-row w-full minmd:w-4/5 sm:flex-col mt-7">
           <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-base">
-            CryptoKet, Inc. All Rights Reserved.
+            Swap2Swap, Inc. All Rights Reserved.
           </p>
           <div className="flex flex-row sm:mt-4">
             {[images.instagram, images.twitter, images.telegram, images.discord].map(
               (image, index) => (
-                <div className="mx-2 cursor-pointer object-contain" key={`image ${index}`}>
+                <div className="mx-2 cursor-pointer" key={`image ${index}`}>
                   <Image
                     src={image}
                     key={index}
                     width={24}
                     height={24}
                     alt="social"
-                    className={theme === 'light' ? 'filter invert' : undefined}
+                    className={`${theme === 'light' ? 'filter invert' : undefined} object-contain`}
                   />
                 </div>
               ),

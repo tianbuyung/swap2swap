@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
@@ -70,6 +70,25 @@ const ButtonGroup = ({ setActive, router }) => {
   );
 };
 
+const checkActive = (active, setActive, router) => {
+  switch (router.pathname) {
+    case '/':
+      if (active !== 'Explore NFTs') setActive('Explore NFTs');
+      break;
+    case '/listed-nfts':
+      if (active !== 'Listed NFTs') setActive('Listed NFTs');
+      break;
+    case '/my-nfts':
+      if (active !== 'My NFTs') setActive('My NFTs');
+      break;
+    case '/create-nft':
+      if (active !== '') setActive('');
+      break;
+    default:
+      setActive('');
+  }
+};
+
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const [active, setActive] = useState('Explore NFTs');
@@ -78,18 +97,47 @@ const Navbar = () => {
 
   const checkTheme = theme === 'light' ? 'filter invert' : undefined;
 
+  useEffect(() => {
+    setTheme('dark');
+  }, []);
+
+  useEffect(() => {
+    checkActive(active, setActive, router);
+  }, [router.pathname]);
+
+  useEffect(() => {
+    // disable body scroll when navbar is open
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'visible';
+    }
+  }, [isOpen]);
+
   return (
     <nav className="flexBetween w-full fixed z-10 p-4 flex-row border-b dark:bg-nft-dark bg-white dark:border-nft-black-1 border-nft-gray-1">
       <div className="flex flex-1 flex-row justify-start">
         <Link href="/">
-          <div className="flexCenter md:hidden cursor-pointer object-contain" onClick={() => {}}>
-            <Image src={images.logo02} alt="logo" width={32} height={32} />
-            <p className="dark:text-white text-nft-black-1 font-semibold text-lg ml-1">CryptoKet</p>
+          <div className="flexCenter md:hidden cursor-pointer" onClick={() => {}}>
+            <Image
+              src={images.swap2swap}
+              alt="logo"
+              width={32}
+              height={32}
+              className="object-contain"
+            />
+            <p className="dark:text-white text-nft-black-1 font-semibold text-lg ml-1">Swap2Swap</p>
           </div>
         </Link>
         <Link href="/">
-          <div className="hidden md:flex object-contain" onClick={() => {}}>
-            <Image src={images.logo02} alt="logo" width={32} height={32} />
+          <div className="hidden md:flex" onClick={() => {}}>
+            <Image
+              src={images.swap2swap}
+              alt="logo"
+              width={32}
+              height={32}
+              className="object-contain"
+            />
           </div>
         </Link>
       </div>
@@ -117,7 +165,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className="hidden md:flex ml-2 object-contain">
+      <div className="hidden md:flex ml-2">
         {!isOpen ? (
           <Image
             src={images.menu}
@@ -125,7 +173,7 @@ const Navbar = () => {
             height={25}
             alt="menu"
             onClick={() => setIsOpen(true)}
-            className={checkTheme}
+            className={`${checkTheme} object-contain`}
           />
         ) : (
           <Image
@@ -134,7 +182,7 @@ const Navbar = () => {
             height={20}
             alt="close"
             onClick={() => setIsOpen(false)}
-            className={checkTheme}
+            className={`${checkTheme} object-contain`}
           />
         )}
 

@@ -9,16 +9,19 @@ import images from 'assets';
 import { NFTContext } from 'context/NFTContext';
 
 const CreateNFT = () => {
+  const { uploadToIPFS, createNFT } = useContext(NFTContext);
   const [fileUrl, setFileUrl] = useState(null);
   const [formInput, setFormInput] = useState({ price: '', name: '', description: '' });
   const { theme } = useTheme();
-  const { uploadToIPFS, createNFT } = useContext(NFTContext);
   const router = useRouter();
 
-  const onDrop = useCallback(async (acceptedFile) => {
-    const url = await uploadToIPFS(acceptedFile[0]);
-    setFileUrl(url);
-  }, []);
+  const onDrop = useCallback(
+    async (acceptedFile) => {
+      const url = await uploadToIPFS(acceptedFile[0]);
+      setFileUrl(url);
+    },
+    [uploadToIPFS],
+  );
 
   const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
     onDrop,
@@ -34,22 +37,6 @@ const CreateNFT = () => {
        ${isDragReject ? ' border-file-reject ' : ''}`,
     [isDragActive, isDragReject, isDragAccept],
   );
-
-  const createMarket = async () => {
-    // const { name, description, price } = formInput;
-    // if (!name || !description || !price || !fileUrl) return;
-    // /* first, upload to IPFS */
-    // const data = JSON.stringify({ name, description, image: fileUrl });
-    // try {
-    //   const added = await client.add(data);
-    //   const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-    //   /* after file is uploaded to IPFS, pass the URL to save it on Polygon */
-    //   await createSale(url, formInput.price);
-    //   router.push('/');
-    // } catch (error) {
-    //   console.log('Error uploading file: ', error);
-    // }
-  };
 
   return (
     <div className="flex justify-center sm:px-4 p-12">
@@ -70,13 +57,13 @@ const CreateNFT = () => {
                   JPG, PNG, GIF, SVG, WEBM, Max 100mb.
                 </p>
 
-                <div className="my-12 w-full flex justify-center object-contain">
+                <div className="my-12 w-full flex justify-center">
                   <Image
                     src={images.upload}
                     width={100}
                     height={100}
                     alt="file upload"
-                    className={theme === 'light' ? 'filter invert' : undefined}
+                    className={`${theme === 'light' ? 'filter invert' : undefined} object-contain`}
                   />
                 </div>
 
@@ -90,8 +77,14 @@ const CreateNFT = () => {
             </div>
             {fileUrl && (
               <aside>
-                <div className="my-12 w-full flex justify-center object-contain">
-                  <Image src={fileUrl} width={200} height={200} alt="Asset_file" />
+                <div className="my-12 w-full flex justify-center">
+                  <Image
+                    src={fileUrl}
+                    width={200}
+                    height={200}
+                    alt="Asset_file"
+                    className="object-contain"
+                  />
                 </div>
               </aside>
             )}
